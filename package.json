@@ -1,0 +1,59 @@
+{
+  "name": "tabby-ai-progress",
+  "version": "0.1.0",
+  "description": "Progress and status indicators for Claude Code, Codex, OpenCode and other AI coding agents in Tabby Terminal. OSC 9;4 support.",
+  "keywords": [
+    "tabby-plugin",
+    "tabby",
+    "tabby-terminal",
+    "claude-code",
+    "codex",
+    "opencode",
+    "gemini-cli",
+    "ai-agents",
+    "coding-agent",
+    "ai-coding-assistant",
+    "terminal",
+    "terminal-progress",
+    "progress-bar",
+    "osc-9-4"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stufently/tabby-ai-progress.git"
+  },
+  "homepage": "https://github.com/stufently/tabby-ai-progress#readme",
+  "bugs": {
+    "url": "https://github.com/stufently/tabby-ai-progress/issues"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode production",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@angular/common": "^15.2.10",
+    "@angular/core": "^15.2.10",
+    "@angular/forms": "^15.2.10",
+    "@types/node": "^24.0.0",
+    "@types/webpack-env": "^1.18.8",
+    "apply-loader": "^2.0.0",
+    "pug": "^3.0.3",
+    "pug-loader": "^2.4.0",
+    "rxjs": "^7.8.2",
+    "tabby-core": "1.0.231-nightly.0",
+    "tabby-settings": "1.0.231-nightly.0",
+    "tabby-terminal": "1.0.231-nightly.0",
+    "ts-loader": "9.6.2",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "webpack": "5.110.2",
+    "webpack-cli": "7.2.3"
+  }
+}

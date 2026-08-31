@@ -1,0 +1,103 @@
+.settings-tab
+    h3 AI Progress
+    p.text-muted
+        | OSC 9;4 is a terminal protocol that lets command-line tools report real progress. Suppressing built-in detection overrides Tabby's own Progress detection for each managed tab.
+
+    .form-line
+        .header
+            .title Enable AI progress
+            .description Drive the tab indicator from OSC, terminal titles, and enabled fallbacks.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.enabled', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Suppress built-in detection
+            .description Prevent Tabby's percentage guess from clearing or replacing plugin progress.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.suppressBuiltInDetection', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Strip OSC 9;4 sequences
+            .description Remove complete progress sequences before xterm.js receives them.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.stripSequences', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Tick interval (ms)
+            .description Heartbeat interval from 100 to 2000 ms.
+        input.form-control(type='number', min='100', max='2000', [(ngModel)]='config.store.aiProgress.tickIntervalMs', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Indeterminate style
+            .description Animation used when an agent reports work without a percentage.
+        select.form-control([(ngModel)]='config.store.aiProgress.indeterminateStyle', (ngModelChange)='config.save()')
+            option(value='sweep') Sweep
+            option(value='pulse') Pulse
+            option(value='static') Static
+    .form-line
+        .header
+            .title Indeterminate value
+            .description Static or paused fallback percentage.
+        input.form-control(type='number', min='0', max='100', [(ngModel)]='config.store.aiProgress.indeterminateValue', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Sweep minimum
+            .description Lower end of sweep and pulse animations.
+        input.form-control(type='number', min='0', max='100', [(ngModel)]='config.store.aiProgress.sweepMin', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Sweep maximum
+            .description Upper end of sweep and pulse animations.
+        input.form-control(type='number', min='0', max='100', [(ngModel)]='config.store.aiProgress.sweepMax', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Sweep period (ms)
+            .description Time to travel from one end to the other.
+        input.form-control(type='number', min='200', max='30000', [(ngModel)]='config.store.aiProgress.sweepPeriodMs', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Attention on error and pause
+            .description Show Tabby's activity marker for states requiring attention.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.attentionOnErrorAndPaused', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Colorize tab
+            .description Use the tab color bar for error and paused states.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.colorizeTab', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Error color
+            .description Hex color used for errors.
+        input.form-control(type='text', [(ngModel)]='config.store.aiProgress.colors.error', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Paused color
+            .description Hex color used when paused or waiting for input.
+        input.form-control(type='text', [(ngModel)]='config.store.aiProgress.colors.paused', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Stale timeout (ms)
+            .description Zero keeps protocol state until the emitter clears it.
+        input.form-control(type='number', min='0', max='3600000', [(ngModel)]='config.store.aiProgress.staleTimeoutMs', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Terminal title source
+            .description Interpret distinctive OSC 0/2 titles through identified agent adapters.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.title.enabled', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Output fallback
+            .description Treat output from an identified agent as temporary activity. Disabled by default.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.fallback.enabled', (ngModelChange)='config.save()')
+    .form-line
+        .header
+            .title Fallback activity window (ms)
+            .description Clear guessed activity after this much output silence.
+        input.form-control(type='number', min='200', max='60000', [(ngModel)]='config.store.aiProgress.fallback.activityWindowMs', (ngModelChange)='config.save()')
+    .form-line(*ngFor='let agent of agents')
+        .header
+            .title Fallback for {{ agent[1] }}
+            .description Allow output activity guesses after this agent is identified.
+        input(type='checkbox', [ngModel]='isFallbackEnabled(agent[0])', (ngModelChange)='setFallbackEnabled(agent[0], $event)')
+    .form-line
+        .header
+            .title Debug logging
+            .description Log feed selection and safely swallowed adapter or host API errors.
+        input(type='checkbox', [(ngModel)]='config.store.aiProgress.debugLogging', (ngModelChange)='config.save()')
