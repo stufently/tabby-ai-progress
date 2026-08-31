@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/); this project use
 
 ## [Unreleased]
 
+### Added
+
+- CI is live: the workflow moved from `docs/github-workflow-ci.yml` to
+  `.github/workflows/ci.yml` and now runs `npm ci` / build / test on push and pull
+  request. It had to be pushed over SSH — the `gh` OAuth token in use lacks the
+  `workflow` scope and HTTPS rejects workflow files without it.
+
 ### Known issues / backlog
 
 Raised by code review after 0.1.0 was assembled, deliberately deferred rather than

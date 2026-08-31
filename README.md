@@ -331,15 +331,12 @@ testable without a running terminal.
 
 ### CI
 
-A ready GitHub Actions workflow lives at [`docs/github-workflow-ci.yml`](docs/github-workflow-ci.yml).
-It is **not** at `.github/workflows/ci.yml` yet because the token used to create this
-repository lacks the `workflow` OAuth scope. To activate it:
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs `npm ci`, `npm run build`
+and `npm test` on every push and pull request.
 
-```bash
-mkdir -p .github/workflows
-git mv docs/github-workflow-ci.yml .github/workflows/ci.yml
-git commit -m "Enable CI" && git push
-```
+Note for future pushes: this repository was created with a `gh` OAuth token that lacks
+the `workflow` scope, so any change to a file under `.github/workflows/` must be pushed
+over SSH (`git@github.com:stufently/tabby-ai-progress.git`), not over HTTPS.
 
 ## Status
 
