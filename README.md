@@ -79,14 +79,28 @@ npm install
 npm run build
 ```
 
-Then either copy the directory into Tabby's plugin folder (**Settings → Plugins → Open
-Plugins Directory**), or point Tabby at it:
+Then install it one of two ways.
+
+**Permanent** — copy the built plugin into Tabby's plugin directory. Tabby resolves
+plugins from `<userData>/plugins/**node_modules**/`, so the `node_modules` level matters:
+
+| OS | Destination |
+|---|---|
+| Linux | `~/.config/tabby/plugins/node_modules/tabby-ai-progress/` |
+| macOS | `~/Library/Application Support/tabby/plugins/node_modules/tabby-ai-progress/` |
+| Windows | `%APPDATA%\tabby\plugins\node_modules\tabby-ai-progress\` |
+
+The directory needs `package.json` and `dist/` at minimum. **Settings → Plugins → Open
+Plugins Directory** opens the right place if you would rather navigate there.
+
+**Temporary, for trying it out** — point Tabby at the checkout:
 
 ```bash
 TABBY_PLUGINS=$(pwd) tabby --debug
 ```
 
-Tabby only loads modules whose `package.json` carries the `tabby-plugin` keyword; this one does.
+Restart Tabby afterwards. Tabby only loads modules whose `package.json` carries the
+`tabby-plugin` keyword; this one does. If it loaded, **Settings → AI Progress** appears.
 
 ## Agent setup
 
