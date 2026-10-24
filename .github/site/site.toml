@@ -1,0 +1,51 @@
+# Site config for .github/site/build.py. Everything else comes from README.md.
+name = "Tabby AI Progress"
+title = "Tabby AI Progress — AI agent progress in Tabby"
+headline = "Real progress indicators for Claude Code, Codex and OpenCode in Tabby Terminal"
+description = "Tabby Terminal plugin that drives the tab progress bar from what AI coding agents report: OSC 9;4 protocol, Codex title adapter. MIT."
+lang = "en"
+keywords = ["tabby terminal", "tabby plugin", "osc 9;4", "terminal progress bar", "claude code", "codex cli", "opencode", "ai coding agents"]
+license = "MIT"
+license_url = "https://opensource.org/license/mit"
+category = "DeveloperApplication"
+os = "Linux, macOS, Windows"
+programming_language = "TypeScript"
+eyebrow = "Open source · MIT · Tabby plugin"
+download_url = "https://github.com/stufently/tabby-ai-progress"
+
+landing_sections = ["What this plugin does", "Supported agents", "Installation"]
+
+pages = []
+docs_dir = ""
+
+features = [
+  "Implements the OSC 9;4 terminal progress protocol in Tabby: any CLI that speaks it drives the tab bar, with no agent-specific code.",
+  "Reads OSC 0 terminal titles through per-agent adapters, so OpenAI Codex CLI works with no configuration.",
+  "Strictly ranked sources: OSC 9;4 over title over an opt-in output heuristic, so a real protocol is never overridden by a guess.",
+  "Stops Tabby's built-in percentage regex from clearing the value, per tab, without touching your global setting.",
+  "Nothing is installed into your agent's configuration and nothing is written to disk; works over SSH and in containers if the agent emits.",
+]
+
+[[faq]]
+q = "Why does the Tabby progress bar flicker while an AI agent works?"
+a = "Tabby's built-in Progress detection is a regular expression that looks for NN% anywhere in the output. Any chunk without a percentage clears the bar and any chunk with one, such as a coverage report or git output, sets it to something meaningless."
+
+[[faq]]
+q = "How do I make Claude Code show progress in Tabby?"
+a = "Set terminalProgressBarEnabled to true in ~/.claude/settings.json and launch Claude Code with TERM_PROGRAM=ghostty TERM_PROGRAM_VERSION=1.2.0, because Claude Code only emits OSC 9;4 for terminals on a hardcoded allowlist and Tabby is not on it."
+
+[[faq]]
+q = "Does it work with OpenAI Codex CLI?"
+a = "Yes, with no configuration. Codex does not implement OSC 9;4, but its TUI writes state into the terminal title and the plugin reads it. Adding run-state and task-progress to terminal_title in ~/.codex/config.toml gives cleaner signals and a real percentage."
+
+[[faq]]
+q = "Why does Claude Code show no progress inside tmux?"
+a = "tmux overwrites TERM_PROGRAM with tmux, so Claude Code's allowlist check fails and it emits nothing. Set the TERM_PROGRAM override inside tmux; set -g allow-passthrough on is not the fix."
+
+[[faq]]
+q = "How do I install tabby-ai-progress?"
+a = "It is not on npm yet. Build it from source with npm install and npm run build, then copy package.json and dist/ into Tabby's plugins/node_modules/tabby-ai-progress/ directory, or run TABBY_PLUGINS=$(pwd) tabby --debug to try it, and restart Tabby."
+
+[[faq]]
+q = "Has it been tested in a real Tabby window?"
+a = "Not yet. 155 unit tests pass, the build and type-check are clean and mutation testing caught 11 of 12 injected defects, but the Tabby-facing glue has not been exercised in a live Tabby session."
